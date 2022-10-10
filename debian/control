@@ -1,0 +1,63 @@
+Source: libgadu
+Section: libs
+Priority: optional
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Build-Depends:
+# debianization tools
+ debhelper-compat (= 12), dpkg-dev (>= 1.16.1~),
+# build tools
+ autoconf, automake, libtool, pkg-config, protobuf-c-compiler,
+# to avoid using the embedded libprotobuf-c copy:
+ libprotobuf-c-dev | libprotobuf-c0-dev,
+# runtime dependencies
+ libgnutls28-dev, zlib1g-dev, ca-certificates,
+# build-time tests
+ libxml2-dev,
+# documentation building
+ doxygen, graphviz
+Build-Conflicts: autoconf2.13, automake1.4
+Standards-Version: 4.5.0
+Homepage: http://toxygen.net/libgadu/
+Vcs-Git: https://salsa.debian.org/debian/libgadu.git
+Vcs-Browser: https://salsa.debian.org/debian/libgadu
+Rules-Requires-Root: no
+
+Package: libgadu3
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Multi-Arch: same
+Description: Gadu-Gadu protocol library - runtime files
+ Gadu-Gadu is an instant messaging program, very popular in
+ Poland. libgadu is a Gadu-Gadu protocol implementation
+ library.
+ .
+ This package contains the shared library.
+
+Package: libgadu-dev
+Section: libdevel
+Architecture: any
+Depends: libgadu3 (= ${binary:Version}), ${misc:Depends},
+# pkg-config needs gnutls (#765654)
+ libgnutls28-dev
+Pre-Depends: ${misc:Pre-Depends}
+Description: Gadu-Gadu protocol library - development files
+ Gadu-Gadu is an instant messaging program, very popular in
+ Poland. libgadu is a Gadu-Gadu protocol implementation
+ library.
+ .
+ This package contains the development files.
+
+Package: libgadu-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Suggests: libgadu-dev
+Multi-Arch: foreign
+Description: Gadu-Gadu protocol library - documentation
+ Gadu-Gadu is an instant messaging program, very popular in
+ Poland. libgadu is a Gadu-Gadu protocol implementation
+ library.
+ .
+ This package contains the documentation and example programs.
